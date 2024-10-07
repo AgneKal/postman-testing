@@ -1,0 +1,1145 @@
+{
+	"info": {
+		"_postman_id": "47008e7c-e0c9-4791-acbf-ea117a2b854d",
+		"name": "Automation exercise",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26209922"
+	},
+	"item": [
+		{
+			"name": "GET All Products List",
+			"item": [
+				{
+					"name": "All Products",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const respData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Products list is not empty and have atleast one product with all properties\", () => {\r",
+									"    pm.expect(respData).to.have.property('products').and.not.empty;\r",
+									"    pm.expect(respData.products).to.be.an('array').that.is.not.empty;\r",
+									"    respData.products.forEach((product) => {  \r",
+									"        pm.expect(product).to.have.property('id');\r",
+									"        pm.expect(product).to.have.property('name');\r",
+									"        pm.expect(product).to.have.property('price');\r",
+									"        pm.expect(product).to.have.property('brand');\r",
+									"        pm.expect(product).to.have.property('category');\r",
+									"        pm.expect(product.category).to.have.property('usertype');\r",
+									"        pm.expect(product.category.usertype).to.have.property('usertype');\r",
+									"        pm.expect(product.category).to.have.property('category');\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Products in list have correct types of properties values\", () => {\r",
+									"    respData.products.forEach((product) => {  \r",
+									"        pm.expect(product.id).to.be.a('number');\r",
+									"        pm.expect(product.name).to.be.a('string');\r",
+									"        pm.expect(product.price).to.be.a('string');\r",
+									"        pm.expect(product.brand).to.be.a('string');\r",
+									"        pm.expect(product.category).to.be.a('object');\r",
+									"        pm.expect(product.category.usertype).to.be.a('object');\r",
+									"        pm.expect(product.category.usertype.usertype).to.be.a('string');\r",
+									"        pm.expect(product.category.category).to.be.a('string');\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response status code is 200\", () => {\r",
+									"    pm.expect(respData).to.have.property('responseCode').and.eq(200);\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1s\", () => {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://automationexercise.com/api/productsList",
+							"protocol": "https",
+							"host": [
+								"automationexercise",
+								"com"
+							],
+							"path": [
+								"api",
+								"productsList"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "GET All Brands",
+			"item": [
+				{
+					"name": "All Brands",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const respData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Brands list is not empty and have atleast one brans with all properties\", () => {\r",
+									"    pm.expect(respData).to.have.property('brands').and.not.empty;\r",
+									"    pm.expect(respData.brands).to.be.an('array').that.is.not.empty;\r",
+									"    respData.brands.forEach((brand) => {  \r",
+									"        pm.expect(brand).to.have.property('id');\r",
+									"        pm.expect(brand).to.have.property('brand');\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Brands in list have correct types of properties values\", () => {\r",
+									"    respData.brands.forEach((brand) => {  \r",
+									"        pm.expect(brand.id).to.be.a('number');\r",
+									"        pm.expect(brand.brand).to.be.a('string');\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response status code is 200\", () => {\r",
+									"    pm.expect(respData).to.have.property('responseCode').and.eq(200);\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1s\", () => {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://automationexercise.com/api/brandsList",
+							"protocol": "https",
+							"host": [
+								"automationexercise",
+								"com"
+							],
+							"path": [
+								"api",
+								"brandsList"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "POST Search Product",
+			"item": [
+				{
+					"name": "Search Product",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const respData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"A search term is mentioned in the product name or category\", () => {\r",
+									"    respData.products.forEach((product) => {\r",
+									"        const nameIncludesTop = product.name.toLowerCase().includes(\"top\");\r",
+									"        const categoryIncludesTop = product.category.category.toLowerCase().includes(\"top\");\r",
+									"\r",
+									"        pm.expect(nameIncludesTop || categoryIncludesTop).to.be.true;\r",
+									"    });\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Products list is not empty and have atleast one product with all properties\", () => {\r",
+									"    pm.expect(respData).to.have.property('products').and.not.empty;\r",
+									"    pm.expect(respData.products).to.be.an('array').that.is.not.empty;\r",
+									"    respData.products.forEach((product) => {  \r",
+									"        pm.expect(product).to.have.property('id');\r",
+									"        pm.expect(product).to.have.property('name');\r",
+									"        pm.expect(product).to.have.property('price');\r",
+									"        pm.expect(product).to.have.property('brand');\r",
+									"        pm.expect(product).to.have.property('category');\r",
+									"        pm.expect(product.category).to.have.property('usertype');\r",
+									"        pm.expect(product.category.usertype).to.have.property('usertype');\r",
+									"        pm.expect(product.category).to.have.property('category');\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Products in list have correct types of properties values\", () => {\r",
+									"    respData.products.forEach((product) => {  \r",
+									"        pm.expect(product.id).to.be.a('number');\r",
+									"        pm.expect(product.name).to.be.a('string');\r",
+									"        pm.expect(product.price).to.be.a('string');\r",
+									"        pm.expect(product.brand).to.be.a('string');\r",
+									"        pm.expect(product.category).to.be.a('object');\r",
+									"        pm.expect(product.category.usertype).to.be.a('object');\r",
+									"        pm.expect(product.category.usertype.usertype).to.be.a('string');\r",
+									"        pm.expect(product.category.category).to.be.a('string');\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response status code is 200\", () => {\r",
+									"    pm.expect(respData).to.have.property('responseCode').and.eq(200);\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1s\", () => {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "search_product",
+								"value": "{{search_product}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "search_product",
+									"value": "{{search_product}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://automationexercise.com/api/searchProduct",
+							"protocol": "https",
+							"host": [
+								"automationexercise",
+								"com"
+							],
+							"path": [
+								"api",
+								"searchProduct"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "POST Create User Account",
+			"item": [
+				{
+					"name": "Delete Account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "{{email}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{passsword}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://automationexercise.com/api/deleteAccount",
+							"protocol": "https",
+							"host": [
+								"automationexercise",
+								"com"
+							],
+							"path": [
+								"api",
+								"deleteAccount"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const respData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response body exist\", () => {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response message correct\", () => {\r",
+									"    pm.expect(respData.message).to.eql(\"User created!\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response code is 201\", () => {\r",
+									"    pm.expect(respData.responseCode).to.eql(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1s\", () => {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "{{name}}",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "{{email}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{passsword}}",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Mr",
+									"type": "text"
+								},
+								{
+									"key": "birth_date",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "birth_month",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "birth_year",
+									"value": "1999",
+									"type": "text"
+								},
+								{
+									"key": "firstname",
+									"value": "John",
+									"type": "text"
+								},
+								{
+									"key": "lastname",
+									"value": "Doe",
+									"type": "text"
+								},
+								{
+									"key": "company",
+									"value": "Belekokia",
+									"type": "text"
+								},
+								{
+									"key": "address1",
+									"value": "Laisves pr. 22",
+									"type": "text"
+								},
+								{
+									"key": "address2",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "India",
+									"type": "text"
+								},
+								{
+									"key": "zipcode",
+									"value": "10324",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "Vilniaus apsk.",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Vilnius",
+									"type": "text"
+								},
+								{
+									"key": "mobile_number",
+									"value": "+37060012345",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://automationexercise.com/api/createAccount",
+							"protocol": "https",
+							"host": [
+								"automationexercise",
+								"com"
+							],
+							"path": [
+								"api",
+								"createAccount"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "POST Verify Login",
+			"item": [
+				{
+					"name": "Create Account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "{{name}}",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "{{email}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{passsword}}",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Mr",
+									"type": "text"
+								},
+								{
+									"key": "birth_date",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "birth_month",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "birth_year",
+									"value": "1999",
+									"type": "text"
+								},
+								{
+									"key": "firstname",
+									"value": "John",
+									"type": "text"
+								},
+								{
+									"key": "lastname",
+									"value": "Doe",
+									"type": "text"
+								},
+								{
+									"key": "company",
+									"value": "Belekokia",
+									"type": "text"
+								},
+								{
+									"key": "address1",
+									"value": "Laisves pr. 22",
+									"type": "text"
+								},
+								{
+									"key": "address2",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "India",
+									"type": "text"
+								},
+								{
+									"key": "zipcode",
+									"value": "10324",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "Vilniaus apsk.",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Vilnius",
+									"type": "text"
+								},
+								{
+									"key": "mobile_number",
+									"value": "+37060012345",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://automationexercise.com/api/createAccount",
+							"protocol": "https",
+							"host": [
+								"automationexercise",
+								"com"
+							],
+							"path": [
+								"api",
+								"createAccount"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const respData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response body exist\", () => {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response message correct\", () => {\r",
+									"    pm.expect(respData.message).to.eql(\"User exists!\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response code is 200\", () => {\r",
+									"    pm.expect(respData.responseCode).to.eql(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1s\", () => {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "{{email}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{passsword}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://automationexercise.com/api/verifyLogin",
+							"protocol": "https",
+							"host": [
+								"automationexercise",
+								"com"
+							],
+							"path": [
+								"api",
+								"verifyLogin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DELETE Delete User Account",
+			"item": [
+				{
+					"name": "Create Account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "{{name}}",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "{{email}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{passsword}}",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Mr",
+									"type": "text"
+								},
+								{
+									"key": "birth_date",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "birth_month",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "birth_year",
+									"value": "1999",
+									"type": "text"
+								},
+								{
+									"key": "firstname",
+									"value": "John",
+									"type": "text"
+								},
+								{
+									"key": "lastname",
+									"value": "Doe",
+									"type": "text"
+								},
+								{
+									"key": "company",
+									"value": "Belekokia",
+									"type": "text"
+								},
+								{
+									"key": "address1",
+									"value": "Laisves pr. 22",
+									"type": "text"
+								},
+								{
+									"key": "address2",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "India",
+									"type": "text"
+								},
+								{
+									"key": "zipcode",
+									"value": "10324",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "Vilniaus apsk.",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Vilnius",
+									"type": "text"
+								},
+								{
+									"key": "mobile_number",
+									"value": "+37060012345",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://automationexercise.com/api/createAccount",
+							"protocol": "https",
+							"host": [
+								"automationexercise",
+								"com"
+							],
+							"path": [
+								"api",
+								"createAccount"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const respData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response body exist\", () => {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response message correct\", () => {\r",
+									"    pm.expect(respData.message).to.eql(\"Account deleted!\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response code is 200\", () => {\r",
+									"    pm.expect(respData.responseCode).to.eql(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1s\", () => {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "{{email}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{passsword}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://automationexercise.com/api/deleteAccount",
+							"protocol": "https",
+							"host": [
+								"automationexercise",
+								"com"
+							],
+							"path": [
+								"api",
+								"deleteAccount"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "POST Add to Cart",
+			"item": [
+				{
+					"name": "Create Account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "{{name}}",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "{{email}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{passsword}}",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Mr",
+									"type": "text"
+								},
+								{
+									"key": "birth_date",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "birth_month",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "birth_year",
+									"value": "1999",
+									"type": "text"
+								},
+								{
+									"key": "firstname",
+									"value": "John",
+									"type": "text"
+								},
+								{
+									"key": "lastname",
+									"value": "Doe",
+									"type": "text"
+								},
+								{
+									"key": "company",
+									"value": "Belekokia",
+									"type": "text"
+								},
+								{
+									"key": "address1",
+									"value": "Laisves pr. 22",
+									"type": "text"
+								},
+								{
+									"key": "address2",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "India",
+									"type": "text"
+								},
+								{
+									"key": "zipcode",
+									"value": "10324",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "Vilniaus apsk.",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Vilnius",
+									"type": "text"
+								},
+								{
+									"key": "mobile_number",
+									"value": "+37060012345",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://automationexercise.com/api/createAccount",
+							"protocol": "https",
+							"host": [
+								"automationexercise",
+								"com"
+							],
+							"path": [
+								"api",
+								"createAccount"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const respData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response body exist\", () => {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 200\", () => {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response message correct\", () => {\r",
+									"    pm.expect(respData.message).to.eql(\"User updated!\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response code is 201\", () => {\r",
+									"    pm.expect(respData.responseCode).to.eql(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response time is less than 1s\", () => {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "{{name}}",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "{{email}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{passsword}}",
+									"type": "text"
+								},
+								{
+									"key": "title",
+									"value": "Mrs",
+									"type": "text"
+								},
+								{
+									"key": "birth_date",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "birth_month",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "birth_year",
+									"value": "1999",
+									"type": "text"
+								},
+								{
+									"key": "firstname",
+									"value": "Mary",
+									"type": "text"
+								},
+								{
+									"key": "lastname",
+									"value": "Does",
+									"type": "text"
+								},
+								{
+									"key": "company",
+									"value": "Belekokia",
+									"type": "text"
+								},
+								{
+									"key": "address1",
+									"value": "Kauno pr. 22",
+									"type": "text"
+								},
+								{
+									"key": "address2",
+									"value": "11",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "India",
+									"type": "text"
+								},
+								{
+									"key": "zipcode",
+									"value": "10324",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "Vilniaus apsk.",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "Vilnius",
+									"type": "text"
+								},
+								{
+									"key": "mobile_number",
+									"value": "+37060014521",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://automationexercise.com/api/updateAccount",
+							"protocol": "https",
+							"host": [
+								"automationexercise",
+								"com"
+							],
+							"path": [
+								"api",
+								"updateAccount"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "search_product",
+			"value": "top"
+		},
+		{
+			"key": "name",
+			"value": "John"
+		},
+		{
+			"key": "passsword",
+			"value": "123456"
+		},
+		{
+			"key": "email",
+			"value": "john@post.kl"
+		}
+	]
+}
