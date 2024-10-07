@@ -3,8 +3,8 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-        "test": "newman run Automation-exercise.postman_collection.json",
-        "report": "newman run Automation-exercise.postman_collection.json -r htmlextra"
+        "test": "newman run postman/Automation-exercise.postman_collection.json",
+        "report": "newman run postman/Automation-exercise.postman_collection.json -r htmlextra"
     },
     "keywords": [],
     "author": "AgneKal (https://github.com/AgneKal)",
