@@ -64,11 +64,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://automationexercise.com/api/productsList",
-							"protocol": "https",
+							"raw": "{{url}}/api/productsList",
 							"host": [
-								"automationexercise",
-								"com"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -126,11 +124,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://automationexercise.com/api/brandsList",
-							"protocol": "https",
+							"raw": "{{url}}/api/brandsList",
 							"host": [
-								"automationexercise",
-								"com"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -225,11 +221,9 @@
 							]
 						},
 						"url": {
-							"raw": "https://automationexercise.com/api/searchProduct",
-							"protocol": "https",
+							"raw": "{{url}}/api/searchProduct",
 							"host": [
-								"automationexercise",
-								"com"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -277,11 +271,9 @@
 							]
 						},
 						"url": {
-							"raw": "https://automationexercise.com/api/deleteAccount",
-							"protocol": "https",
+							"raw": "{{url}}/api/deleteAccount",
 							"host": [
-								"automationexercise",
-								"com"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -421,11 +413,9 @@
 							]
 						},
 						"url": {
-							"raw": "https://automationexercise.com/api/createAccount",
-							"protocol": "https",
+							"raw": "{{url}}/api/createAccount",
 							"host": [
-								"automationexercise",
-								"com"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -549,11 +539,9 @@
 							]
 						},
 						"url": {
-							"raw": "https://automationexercise.com/api/createAccount",
-							"protocol": "https",
+							"raw": "{{url}}/api/createAccount",
 							"host": [
-								"automationexercise",
-								"com"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -617,11 +605,9 @@
 							]
 						},
 						"url": {
-							"raw": "https://automationexercise.com/api/verifyLogin",
-							"protocol": "https",
+							"raw": "{{url}}/api/verifyLogin",
 							"host": [
-								"automationexercise",
-								"com"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -745,11 +731,9 @@
 							]
 						},
 						"url": {
-							"raw": "https://automationexercise.com/api/createAccount",
-							"protocol": "https",
+							"raw": "{{url}}/api/createAccount",
 							"host": [
-								"automationexercise",
-								"com"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -813,11 +797,9 @@
 							]
 						},
 						"url": {
-							"raw": "https://automationexercise.com/api/deleteAccount",
-							"protocol": "https",
+							"raw": "{{url}}/api/deleteAccount",
 							"host": [
-								"automationexercise",
-								"com"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -941,11 +923,9 @@
 							]
 						},
 						"url": {
-							"raw": "https://automationexercise.com/api/createAccount",
-							"protocol": "https",
+							"raw": "{{url}}/api/createAccount",
 							"host": [
-								"automationexercise",
-								"com"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -1085,11 +1065,9 @@
 							]
 						},
 						"url": {
-							"raw": "https://automationexercise.com/api/updateAccount",
-							"protocol": "https",
+							"raw": "{{url}}/api/updateAccount",
 							"host": [
-								"automationexercise",
-								"com"
+								"{{url}}"
 							],
 							"path": [
 								"api",
@@ -1140,6 +1118,11 @@
 		{
 			"key": "email",
 			"value": "john@post.kl"
+		},
+		{
+			"key": "url",
+			"value": "https://www.automationexercise.com",
+			"type": "string"
 		}
 	]
 }
