@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "47008e7c-e0c9-4791-acbf-ea117a2b854d",
-		"name": "Automation exercise",
+		"name": "Automation-exercise",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "26209922"
 	},
@@ -156,8 +156,8 @@
 									"\r",
 									"pm.test(\"A search term is mentioned in the product name or category\", () => {\r",
 									"    respData.products.forEach((product) => {\r",
-									"        const nameIncludesTop = product.name.toLowerCase().includes(\"top\");\r",
-									"        const categoryIncludesTop = product.category.category.toLowerCase().includes(\"top\");\r",
+									"        const nameIncludesTop = product.name.toLowerCase().includes(pm.collectionVariables.get(\"search_product\"));\r",
+									"        const categoryIncludesTop = product.category.category.toLowerCase().includes(pm.collectionVariables.get(\"search_product\"));\r",
 									"\r",
 									"        pm.expect(nameIncludesTop || categoryIncludesTop).to.be.true;\r",
 									"    });\r",
@@ -830,7 +830,7 @@
 			]
 		},
 		{
-			"name": "POST Add to Cart",
+			"name": "PUT Update Account",
 			"item": [
 				{
 					"name": "Create Account",
